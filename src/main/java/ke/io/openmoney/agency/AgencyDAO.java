@@ -11,11 +11,14 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -25,7 +28,7 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class AgencyDAO {
 
-    private static final Map<String, AgencyUtils> agencyMap = new HashMap<String, AgencyUtils>();
+    public static final Map<String, AgencyUtils> agencyMap = new HashMap<String, AgencyUtils>();
 
     @XmlElement(name = "agent")
     public static AgencyUtils createAgency(AgencyUtils agencyUtils) {
@@ -65,38 +68,37 @@ public class AgencyDAO {
         return agencyUtils;
     }
 
-    public List<AgencyUtils> getAllAgency() {
-        //static HashMap<String, AgencyUtils> agencyMap = new HashMap<String, AgencyUtils>(agen);
-        List<AgencyUtils> getAgencyList = getAgencyList = new ArrayList<AgencyUtils>(agencyMap.values());
-        AgencyUtils getAllAgency = null;
-        Connection con = null;
-        try {
-            
-            con = DBConnector.getMysqlDBConnection();
-            String query = "SELECT id,fname,mname,lname,country,city,currency from remittance.agency;";
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                getAllAgency = new AgencyUtils();
-                //getAllAgency.agencyId = rs.getString("id");
-                getAllAgency.agencyFirstName = rs.getString("fname");
-                getAllAgency.agencyMiddleName = rs.getString("mname");
-                getAllAgency.agencyLastName = rs.getString("lname");
-                getAllAgency.country = rs.getString("country");
-                getAllAgency.address.city = rs.getString("city");
-                getAllAgency.currency = rs.getString("currency");
-                getAgencyList.add(getAllAgency);
-                ObjectMapper mapper = new ObjectMapper();
-                String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(getAllAgency);
-                System.out.print(jsonString);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return getAgencyList;
-    }
-
+//    public List<AgencyUtils> getAllAgency() {
+//        //static HashMap<String, AgencyUtils> agencyMap = new HashMap<String, AgencyUtils>(agen);
+//        List<AgencyUtils> getAgencyList = getAgencyList = new ArrayList<AgencyUtils>(agencyMap.values());
+//        AgencyUtils getAllAgency = null;
+//        Connection con = null;
+//        try {
+//            
+//            con = DBConnector.getMysqlDBConnection();
+//            String query = "SELECT id,fname,mname,lname,country,city,currency from remittance.agency;";
+//            Statement stmt = con.createStatement();
+//            ResultSet rs = stmt.executeQuery(query);
+//            while (rs.next()) {
+//                getAllAgency = new AgencyUtils();
+//                //getAllAgency.agencyId = rs.getString("id");
+//                getAllAgency.agencyFirstName = rs.getString("fname");
+//                getAllAgency.agencyMiddleName = rs.getString("mname");
+//                getAllAgency.agencyLastName = rs.getString("lname");
+//                getAllAgency.country = rs.getString("country");
+//                getAllAgency.address.city = rs.getString("city");
+//                getAllAgency.currency = rs.getString("currency");
+//                getAgencyList.add(getAllAgency);
+//                ObjectMapper mapper = new ObjectMapper();
+//                String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(getAllAgency);
+//                System.out.print(jsonString);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return getAgencyList;
+//    }
 //       public List<AgencyUtils> getAllAgency(){
 //        List<AgencyUtils> getAgencyList = new ArrayList<AgencyUtils>();
 //        AgencyUtils agencyUtils = null;
@@ -125,4 +127,5 @@ public class AgencyDAO {
 //
 //        return getAgencyList;
 //    }
+ 
 }

@@ -1,6 +1,8 @@
 ke\io\openmoney\agency\AgencyUtils.class
 ke\io\openmoney\agency\AgencyDAO.class
 ke\io\openmoney\agency\Address.class
+ke\io\openmoney\agency\AgencyImpl.class
+ke\io\openmoney\agency\AgentDAO.class
 ke\io\openmoney\UserUtils.class
 ke\io\openmoney\agency\Document.class
 com\brian\db\DBConnector.class
